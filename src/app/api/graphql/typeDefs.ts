@@ -3,6 +3,9 @@ export const typeDefs = gql`
   type Query {
     loginUser(userCred: String!, password: String!): Boolean
     currentUser: User
+    getAllUsers: [User]
+    getAllProducts: [Product]
+    getProductById(id: String!): Product
   }
   type Mutation {
     createUser(
@@ -10,9 +13,25 @@ export const typeDefs = gql`
       email: String!
       password: String!
       username: String!
+      role: String
     ): User
-    updateUserRole(userId: String!, role: String!):User
-    updateUserProfile(userId:String!,name:String!,email:String!,username:String!,avatar:String):User
+    updateUserRole(userId: String!, role: String!): User
+    updateUserProfile(
+      userId: String!
+      name: String!
+      email: String!
+      username: String!
+      avatar: String
+    ): User
+    addProduct(
+      title: String!
+      description: String!
+      category: String!
+      price: Float!
+      stock: Int!
+      imageUrl: String!
+    ): Product
+    createSale(id: String!, quantity: Int): Boolean
   }
   type User {
     id: String
@@ -21,5 +40,14 @@ export const typeDefs = gql`
     email: String
     role: String
     avatar: String
+  }
+  type Product {
+    id: String
+    title: String
+    description: String
+    category: String
+    price: Float
+    stock: Int
+    imageUrl: String
   }
 `;

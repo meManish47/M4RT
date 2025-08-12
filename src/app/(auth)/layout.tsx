@@ -10,7 +10,6 @@ export default async function AuthLayout({
   children: ReactNode;
 }) {
   const user = await getUserFromCookies();
-  if (!user) redirect("/");
 
   return (
     <div className="overflow-x-hidden relative">

@@ -20,6 +20,34 @@ import {
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { useState } from "react";
+import { gql } from "graphql-request";
+import { Roletype, User } from "../../../generated/prisma";
+import { gqlClient } from "@/services/graphql";
+import { toast } from "sonner";
+const CREATE_USER = gql`
+  mutation CreateUser(
+    $name: String!
+    $email: String!
+    $password: String!
+    $username: String!
+    $role: String!
+  ) {
+    createUser(
+      name: $name
+      email: $email
+      password: $password
+      username: $username
+      role: $role
+    ) {
+      name
+      email
+      username
+      role
+      id
+      avatar
+    }
+  }
+`;
 export default function AddUserButton() {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
@@ -27,22 +55,29 @@ export default function AddUserButton() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("staff");
+  const [loading, setLoading] = useState(false);
+
   async function handleSubmit() {
-    const data = {
+    setLoading(true);
+    const data: { createUser: User } = await gqlClient.request(CREATE_USER, {
       email,
       name,
       username,
       password,
       role,
-    };
-    console.log(data);
+    });
+    const createdUser = data.createUser;
+    console.log(createdUser);
+    if (createdUser) toast.success("Created Successfully");
+    else toast.error("Failed");
     setOpen(false);
+    setLoading(false);
   }
   return (
     <Dialog modal={false} open={open} onOpenChange={setOpen}>
       <form>
         <DialogTrigger asChild>
-          <Button className="h-max py-1 ps-10">
+          <Button className="h-max py-1 ps-4">
             <span className="font-extrabold">+</span>Add user
           </Button>
         </DialogTrigger>
@@ -116,8 +151,12 @@ export default function AddUserButton() {
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button type="submit" onClick={handleSubmit}>
-              Save changes
+            <Button type="submit" onClick={handleSubmit} disabled={loading}>
+              {loading ? (
+                <span className="loading loading-bars loading-xs"></span>
+              ) : (
+                "Save"
+              )}
             </Button>
           </DialogFooter>
         </DialogContent>

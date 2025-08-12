@@ -33,6 +33,7 @@ export async function createUser(
     username: string;
     email: string;
     password: string;
+    role: Roletype;
   }
 ) {
   try {
@@ -95,6 +96,17 @@ export async function updateUserProfile(
     });
     if (!updatedUser) return null;
     return updatedUser;
+  } catch (error) {
+    return null;
+  }
+}
+
+export async function getAllUsers() {
+  const user = await getUserFromCookies();
+  if (user?.role !== "admin") return null;
+  try {
+    const users = await prismaClient.user.findMany();
+    return users.filter((user) => user.role !== "admin");
   } catch (error) {
     return null;
   }
