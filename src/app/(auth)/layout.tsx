@@ -1,7 +1,6 @@
 import NewUserContext from "@/components/contexts/userContext";
 import HeaderComponent from "@/components/header/header";
 import { getUserFromCookies } from "@/helper/helper";
-import { redirect } from "next/navigation";
 import { ReactNode } from "react";
 
 export default async function AuthLayout({

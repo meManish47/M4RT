@@ -1,7 +1,6 @@
 import AddUserButton from "@/components/adminComp/addUserBtn";
 import AdminDashboard from "@/components/adminComp/admin-dashboard";
 import ShowUserOnAdminPage from "@/components/adminComp/showuserOnAdminPage";
-import { Button } from "@/components/ui/button";
 
 export default function AdminPage() {
   return (
@@ -9,7 +8,7 @@ export default function AdminPage() {
       <div className="h-[80%] lg:w-[30%] lg:min-w-80 w-full rounded-4xl  shadow-2xl flex flex-col  p-6 dark:bg-[#161616]/40">
         <div className="w-full h-max  flex flex-col justify-end items-end ">
           <div className="w-full h-full text-2xl font-bold  flex justify-between items-center px-2">
-            User's lists
+            User&apos;s lists
             <AddUserButton />
           </div>
         </div>

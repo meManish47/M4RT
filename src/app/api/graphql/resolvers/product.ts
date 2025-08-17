@@ -2,7 +2,7 @@ import prismaClient from "@/services/prisma";
 import { ProductCategory } from "../../../../../generated/prisma";
 
 export default async function addProduct(
-  _: any,
+  parent: unknown,
   args: {
     title: string;
     description: string;
@@ -30,7 +30,7 @@ export async function getAllProducts() {
   }
 }
 
-export async function getProductById(_: any, args: { id: string }) {
+export async function getProductById(parent: unknown, args: { id: string }) {
   try {
     const product = await prismaClient.product.findUnique({
       where: { id: args.id },
@@ -38,7 +38,6 @@ export async function getProductById(_: any, args: { id: string }) {
     });
     return product;
   } catch (error) {
-    console.log(error);
     return null;
   }
 }

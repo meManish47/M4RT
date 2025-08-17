@@ -4,11 +4,10 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
+  DialogTrigger
 } from "@/components/ui/dialog";
 import {
   Select,
@@ -17,13 +16,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
-import { useState } from "react";
-import { gql } from "graphql-request";
-import { Roletype, User } from "../../../generated/prisma";
 import { gqlClient } from "@/services/graphql";
+import { gql } from "graphql-request";
+import { useState } from "react";
 import { toast } from "sonner";
+import { User } from "../../../generated/prisma";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 const CREATE_USER = gql`
   mutation CreateUser(
     $name: String!

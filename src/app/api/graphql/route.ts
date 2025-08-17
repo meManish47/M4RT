@@ -3,7 +3,6 @@ import { ApolloServer } from "@apollo/server";
 import { NextRequest } from "next/server";
 import { typeDefs } from "./typeDefs";
 import { resolvers } from "./resolvers";
-
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -13,5 +12,10 @@ const server = new ApolloServer({
 const handler = startServerAndCreateNextHandler<NextRequest>(server, {
   context: async (req) => ({ req }),
 });
+export async function GET(req: NextRequest) {
+  return handler(req);
+}
 
-export { handler as GET, handler as POST };
+export async function POST(req: NextRequest) {
+  return handler(req);
+}

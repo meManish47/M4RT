@@ -2,7 +2,7 @@ import { ImageSliderComponent } from "@/components/ui/image-auto-slider";
 import { gqlClient } from "@/services/graphql";
 import { Product } from "../../../../generated/prisma";
 import ProductCard from "@/components/productComp/productCard";
-
+export const dynamic = "force-dynamic";
 export default async function ProductPage() {
   const data: { getAllProducts: Product[] } =
     await gqlClient.request(`query GetAllProducts {

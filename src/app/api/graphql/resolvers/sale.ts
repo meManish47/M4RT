@@ -1,7 +1,7 @@
 import prismaClient from "@/services/prisma";
 
 export async function createSale(
-  _: any,
+  parent: unknown,
   args: {
     id: string;
     quantity: number;

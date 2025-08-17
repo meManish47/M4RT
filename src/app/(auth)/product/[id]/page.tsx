@@ -1,9 +1,7 @@
+import ProductSaleChart, { ProductWithSales } from "@/components/example-chart";
+import ProductDetailsCard from "@/components/productComp/productDetail";
 import { gqlClient } from "@/services/graphql";
 import { gql } from "graphql-request";
-import { Product } from "../../../../../generated/prisma";
-import Image from "next/image";
-import ProductDetailsCard from "@/components/productComp/productDetail";
-import ProductSaleChart, { ProductWithSales } from "@/components/example-chart";
 
 const GET_PRODUCT_BYID = gql`
   query GetProductById($id: String!) {
