@@ -34,9 +34,11 @@ export async function getProductById(_: any, args: { id: string }) {
   try {
     const product = await prismaClient.product.findUnique({
       where: { id: args.id },
+      include: { sales: { orderBy: { createdAt: "asc" } } },
     });
     return product;
   } catch (error) {
+    console.log(error);
     return null;
   }
 }

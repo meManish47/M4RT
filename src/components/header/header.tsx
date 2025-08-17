@@ -18,6 +18,9 @@ export default function HeaderComponent() {
       <Link href={"/products"}>
         <p className="text-lg underline">Products</p>
       </Link>
+      <Link href={"/admin"}>
+        <p className="text-lg underline">Admin</p>
+      </Link>
       <div className="w-max flex gap-2">
         <UserDropDown />
         <ModeToggle />

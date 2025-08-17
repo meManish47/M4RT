@@ -49,5 +49,12 @@ export const typeDefs = gql`
     price: Float
     stock: Int
     imageUrl: String
+    sales: [Sale]
+  }
+  type Sale {
+    id: String
+    productId: String
+    quantity: String
+    createdAt: String
   }
 `;
