@@ -1,3 +1,4 @@
+"use server";
 import { verifyToken } from "@/services/jwt";
 import prismaClient from "@/services/prisma";
 import { cookies } from "next/headers";
@@ -20,4 +21,8 @@ export async function getUserFromCookies() {
   } catch (err) {
     return null;
   }
+}
+export async function deleteCookies() {
+  const userCookies = await cookies();
+  userCookies.delete("token");
 }

@@ -10,9 +10,14 @@ import {
 import { useContext } from "react";
 import { User } from "lucide-react";
 import { UserContext } from "../contexts/userContext";
+import { deleteCookies } from "@/helper/helper";
 export default function UserDropDown() {
   const context = useContext(UserContext);
   const user = context?.user;
+  async function handleLogout() {
+    await deleteCookies();
+    window.location.href = "/";
+  }
   return (
     <main className="h-full w-max flex justify-center items-center ">
       <DropdownMenu modal={false}>
@@ -29,7 +34,7 @@ export default function UserDropDown() {
               {user.name}
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem className="cursor-pointer">
+            <DropdownMenuItem className="cursor-pointer" onClick={handleLogout}>
               LogOut
             </DropdownMenuItem>
           </DropdownMenuContent>
@@ -37,7 +42,7 @@ export default function UserDropDown() {
           <DropdownMenuContent className="mt-4 me-12">
             <DropdownMenuItem
               className="cursor-pointer"
-              onClick={() => (window.location.href = "/login")}
+              onClick={() => (window.location.href = "/")}
             >
               LogIn
             </DropdownMenuItem>

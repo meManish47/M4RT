@@ -12,8 +12,8 @@ export default async function ProductPage() {
 }`);
   const products = data.getAllProducts;
   return (
-    <main className="w-screen h-screen flex     ">
-      <div className="w-full h-full flex flex-wrap bg-emerald px-40 py-4 gap-12">
+    <main className="w-screen h-full flex  mb-20 lg:mb-2  ">
+      <div className="w-full h-full flex flex-wrap bg-emerald lg:px-40 py-4 lg:gap-12 gap-4 justify-center">
         <ImageSliderComponent />
         {products.map((product) => {
           return (

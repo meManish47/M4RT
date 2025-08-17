@@ -38,10 +38,13 @@ export default async function Page({
   );
   const product = data.getProductById;
   return (
-    <div className="min-h-screen flex justify-center items-start px-4 py-8">
+    <div className="min-h-screen flex flex-col lg:flex-row gap-4 justify-center items-start px-4 py-8 pb-20">
       <ProductDetailsCard product={product} />
-      <div className="h-100 w-100">
-        <ProductSaleChart product={product}/>
+      <div className="h-100 w-full lg:h-100 flex flex-col gap-2 py-4 justify-center ">
+        <p className="text-xl font-semibold lg:text-3xl lg:font-bold">
+          Sales Chart:
+        </p>
+        <ProductSaleChart product={product} />
       </div>
     </div>
   );

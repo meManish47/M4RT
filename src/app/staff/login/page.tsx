@@ -42,7 +42,7 @@ export default function LoginPage() {
     });
     if (data.loginUser) {
       toast.success("Successfully logged in!");
-      // window.location.href = "/";
+      window.location.href = "/products";
     } else toast.error("Can't login");
     setLoading(false);
   }
@@ -62,7 +62,7 @@ export default function LoginPage() {
           <div className="absolute inset-0 h-full w-full bg-black/40"></div>
         </div>
 
-        <Card className="w-full md:w-1/2 h-[80%]  rounded-xs flex flex-col justify-between">
+        <Card className="w-full md:w-1/2 md:h-[80%] h-full rounded-xs flex flex-col justify-between">
           <CardHeader>
             <CardTitle className="text-3xl font-extrabold mb-2">
               Login
