@@ -9,30 +9,59 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { gqlClient } from "@/services/graphql";
 import { Label } from "@radix-ui/react-label";
+import { gql } from "graphql-request";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
-
+import { User } from "../../../generated/prisma";
+const CREATE_USER = gql`
+  mutation Mutation(
+    $name: String!
+    $email: String!
+    $password: String!
+    $username: String!
+  ) {
+    createUser(
+      name: $name
+      email: $email
+      password: $password
+      username: $username
+    ) {
+      name
+      avatar
+      email
+      username
+      id
+      role
+    }
+  }
+`;
 export default function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
 
   async function handleClick() {
     if (!name || !email || !password) {
       toast.error("Name, email, and password can't be empty");
       return;
     }
-    // TODO: Implement your signup backend request here
-
-    // Example:
-    // const data = await gqlClient.request(SIGNUP_MUTATION, { name, email, password });
-    // if (data.signupUser) toast.success("Successfully signed up!");
-    // else toast.error("Signup failed");
-
-    toast.success("Signup logic not implemented yet!");
+    const data: { createUser: User } = await gqlClient.request(CREATE_USER, {
+      name,
+      email,
+      password,
+      username,
+    });
+    if (data.createUser) {
+      toast.success("Signup successful!");
+      window.location.href = "/";
+    } else {
+      toast.error("Something went wrong");
+    }
   }
 
   return (
@@ -92,6 +121,17 @@ export default function SignupPage() {
                     className="rounded-xs"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div className="grid gap-2">
+                  <Label>Username</Label>
+                  <Input
+                    type="text"
+                    placeholder="username"
+                    required
+                    className="rounded-xs"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                   />
                 </div>
                 <div className="grid gap-2">

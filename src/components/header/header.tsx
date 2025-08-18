@@ -16,11 +16,11 @@ export default function HeaderComponent() {
       <Link href={"/products"}>
         <p className="text-lg underline">Products</p>
       </Link>
-      {user?.role === "admin" && (
-        <Link href={"/admin"}>
-          <p className="text-lg underline">Admin</p>
-        </Link>
-      )}
+
+      <Link href={"/dashboard"}>
+        <p className="text-lg underline">Dashboard</p>
+      </Link>
+
       <div className="w-max flex gap-2">
         <UserDropDown />
         <ModeToggle />

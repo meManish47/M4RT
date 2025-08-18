@@ -22,6 +22,7 @@ export const typeDefs = gql`
       email: String!
       username: String!
       avatar: String
+      role: String
     ): User
     addProduct(
       title: String!

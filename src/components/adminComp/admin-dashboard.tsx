@@ -6,7 +6,6 @@ export default function AdminDashboard() {
     <div className="flex flex-col w-full gap-6 p-4">
       <p className="text-2xl lg:text-3xl font-bold">Admin Dashboard</p>
       <UsersCount />
-
       <RecentActivity />
     </div>
   );

@@ -6,7 +6,7 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { gqlClient } from "@/services/graphql";
@@ -39,7 +39,7 @@ export default function LoginPage() {
     });
     if (data.loginUser) {
       toast.success("Successfully logged in!");
-      window.location.href = "/admin";
+      window.location.href = "/dashboard";
     } else toast.error("Can't login");
     setLoading(false);
   }

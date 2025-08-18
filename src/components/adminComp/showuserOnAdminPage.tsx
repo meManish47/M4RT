@@ -2,12 +2,12 @@
 
 import { gqlClient } from "@/services/graphql";
 import { gql } from "graphql-request";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { User } from "../../../generated/prisma";
-import { Separator } from "../ui/separator";
 import { Badge } from "../ui/badge";
-import Image from "next/image";
-
+import { Separator } from "../ui/separator";
+import UserUpdateButton from "./userupdate/userupdatebutton";
 const GET_ALL_USERS = gql`
   query GetAllUsers {
     getAllUsers {
@@ -83,7 +83,10 @@ export default function ShowUserOnAdminPage() {
                   <p className="text-xs text-muted-foreground">
                     @{user.username}
                   </p>
-                  <p>{user.email}</p>
+                  <div className="w-full flex justify-between">
+                    <p>{user.email}</p>
+                    <UserUpdateButton user={user}/>
+                  </div>
                 </div>
               </div>
             </div>

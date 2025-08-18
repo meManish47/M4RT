@@ -77,6 +77,7 @@ export async function updateUserProfile(
     avatar: string;
     username: string;
     userId: string;
+    role: Roletype;
   }
 ) {
   try {
@@ -88,6 +89,7 @@ export async function updateUserProfile(
       username: args.username,
       email: args.email,
       avatar: args.avatar,
+      role: args.role,
     };
 
     const updatedUser = await prismaClient.user.update({

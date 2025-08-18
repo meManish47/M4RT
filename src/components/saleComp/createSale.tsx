@@ -40,7 +40,10 @@ export default function CreateSaleButton({
         type="number"
         placeholder="Enter quantity"
         value={quantity}
-        onChange={(e) => setQuantity(parseInt(e.target.value))}
+        min={1}
+        onChange={(e) =>
+          setQuantity(Math.max(1, parseInt(e.target.value) || 1))
+        }
       />
       <Button onClick={handleSubmit}>Create Sale</Button>
     </div>
