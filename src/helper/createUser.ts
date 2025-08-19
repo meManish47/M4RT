@@ -12,15 +12,6 @@ export async function createUserInDb(data: {
   role: Roletype;
 }) {
   try {
-    const existing = await prismaClient.user.findUnique({
-      where: { email: data.email },
-    });
-    if (existing) {
-      return {
-        success: true,
-        user: existing,
-      };
-    }
     const user = await prismaClient.user.create({
       data,
     });
