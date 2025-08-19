@@ -49,8 +49,7 @@ export default function SignupPage() {
       toast.success("Signup successful!");
       window.location.href = "/";
     } else {
-      toast.error(res.message);
-
+      toast.error("Cant signup , Ask admin ");
     }
   }
 
