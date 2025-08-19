@@ -9,7 +9,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { createUserInDb } from "@/helper/helper";
 import { Label } from "@radix-ui/react-label";
 import { gql } from "graphql-request";
 import Image from "next/image";
@@ -17,6 +16,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Roletype } from "../../../generated/prisma";
+import { createUserInDb } from "@/helper/createUser";
 const CREATE_USER = gql`
   mutation Mutation(
     $name: String!
@@ -72,6 +72,7 @@ export default function SignupPage() {
       window.location.href = "/";
     } else {
       toast.error(res.message);
+
     }
   }
 
