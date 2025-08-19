@@ -17,28 +17,6 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { Roletype } from "../../../generated/prisma";
 import { createUserInDb } from "@/helper/createUser";
-const CREATE_USER = gql`
-  mutation Mutation(
-    $name: String!
-    $email: String!
-    $password: String!
-    $username: String!
-  ) {
-    createUser(
-      name: $name
-      email: $email
-      password: $password
-      username: $username
-    ) {
-      name
-      avatar
-      email
-      username
-      id
-      role
-    }
-  }
-`;
 export default function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");

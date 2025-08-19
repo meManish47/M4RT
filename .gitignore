@@ -1,5 +1,3 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 /node_modules
 /.pnp
@@ -40,4 +38,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-/generated/prisma
+# prisma
+# let prisma generate client in node_modules/.prisma (don’t ignore it)
+# if you previously had "output = ./generated/prisma", remove that from schema.prisma
+# so we don't need to track generated client in git
+/prisma/migrations/
+
