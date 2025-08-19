@@ -9,15 +9,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import { gqlClient } from "@/services/graphql";
 import { Label } from "@radix-ui/react-label";
 import { gql } from "graphql-request";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Roletype, User } from "../../../generated/prisma";
-import { createUserInDb } from "@/helper/createUser";
-import { gqlClient } from "@/services/graphql";
+import { User } from "../../../generated/prisma";
 const CREATE_USER = gql`
   mutation Mutation(
     $name: String!
