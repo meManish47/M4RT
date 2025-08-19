@@ -9,14 +9,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import { gqlClient } from "@/services/graphql";
+import { createUserInDb } from "@/helper/helper";
 import { Label } from "@radix-ui/react-label";
 import { gql } from "graphql-request";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
-import { User } from "../../../generated/prisma";
+import { Roletype } from "../../../generated/prisma";
 const CREATE_USER = gql`
   mutation Mutation(
     $name: String!
@@ -50,17 +50,28 @@ export default function SignupPage() {
       toast.error("Name, email, and password can't be empty");
       return;
     }
-    const data: { createUser: User } = await gqlClient.request(CREATE_USER, {
+    const userToCreate: {
+      name: string;
+      email: string;
+      password: string;
+      username: string;
+      avatar: string | null;
+      role: Roletype;
+    } = {
       name,
       email,
-      password,
       username,
-    });
-    if (data.createUser) {
+      password,
+      avatar: null,
+      role: "staff",
+    };
+    const res = await createUserInDb(userToCreate);
+
+    if (res.success) {
       toast.success("Signup successful!");
       window.location.href = "/";
     } else {
-      toast.error("Something went wrong");
+      toast.error(res.message);
     }
   }
 
@@ -89,7 +100,7 @@ export default function SignupPage() {
               </p>
               <Link
                 className="ms-1 cursor-pointer text-xs underline text-foreground"
-                href={"/login"}
+                href={"/"}
               >
                 Login
               </Link>
