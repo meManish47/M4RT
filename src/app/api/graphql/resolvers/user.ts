@@ -39,15 +39,33 @@ export async function createUser(
   }
 ) {
   try {
-    const currUser = await getUserFromCookies();
-    if (currUser?.role !== "admin") return null;
-
-    const user = await prismaClient.user.create({
-      data: args,
+    const existing = await prismaClient.user.findFirst({
+      where: {
+        OR: [{ email: args.email }, { username: args.username }],
+      },
     });
-    return user;
-  } catch (error) {
-    return null;
+
+    if (existing) {
+      return {
+        success: false,
+        message: "User already exists",
+        user: null,
+      };
+    }
+
+    const user = await prismaClient.user.create({ data: args });
+
+    return {
+      success: true,
+      message: "User created successfully",
+      user,
+    };
+  } catch (err) {
+    return {
+      success: false,
+      message: (err as Error).message,
+      user: null,
+    };
   }
 }
 

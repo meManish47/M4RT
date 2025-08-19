@@ -14,7 +14,7 @@ export const typeDefs = gql`
       password: String!
       username: String!
       role: String
-    ): User
+    ): UserResponse
     updateUserRole(userId: String!, role: String!): User
     updateUserProfile(
       userId: String!
@@ -57,5 +57,10 @@ export const typeDefs = gql`
     productId: String
     quantity: String
     createdAt: String
+  }
+  type UserResponse {
+    success: Boolean!
+    message: String
+    user: User
   }
 `;

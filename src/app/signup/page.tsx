@@ -15,8 +15,35 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
-import { Roletype } from "../../../generated/prisma";
+import { Roletype, User } from "../../../generated/prisma";
 import { createUserInDb } from "@/helper/createUser";
+import { gqlClient } from "@/services/graphql";
+const CREATE_USER = gql`
+  mutation Mutation(
+    $name: String!
+    $email: String!
+    $password: String!
+    $username: String!
+  ) {
+    createUser(
+      name: $name
+      email: $email
+      password: $password
+      username: $username
+    ) {
+      success
+      message
+      user {
+        avatar
+        email
+        name
+        id
+        role
+        username
+      }
+    }
+  }
+`;
 export default function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -28,28 +55,20 @@ export default function SignupPage() {
       toast.error("Name, email, and password can't be empty");
       return;
     }
-    const userToCreate: {
-      name: string;
-      email: string;
-      password: string;
-      username: string;
-      avatar: string | null;
-      role: Roletype;
-    } = {
+    const data: {
+      createUser: { success: boolean; message: string; user: User };
+    } = await gqlClient.request(CREATE_USER, {
       name,
       email,
       username,
       password,
-      avatar: null,
-      role: "staff",
-    };
-    const res = await createUserInDb(userToCreate);
+    });
 
-    if (res.success) {
+    if (data.createUser.success) {
       toast.success("Signup successful!");
       window.location.href = "/";
     } else {
-      toast.error("Cant signup , Ask admin ");
+      toast.error(data.createUser.message);
     }
   }
 
